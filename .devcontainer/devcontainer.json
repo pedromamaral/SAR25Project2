@@ -11,10 +11,9 @@
 		// Configure properties specific to VS Code.
 		"vscode": {
 			"settings": {
-				"typescript.preferences.includePackageJsonAutoImports": "auto",
 				"editor.formatOnSave": true,
 				"editor.codeActionsOnSave": {
-					"source.organizeImports": true
+					"source.organizeImports": "explicit"
 				}
 			},
 			// Add the IDs of extensions you want installed when the container is created.
