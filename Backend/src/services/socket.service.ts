@@ -1,8 +1,6 @@
-import { Server, Socket } from 'socket.io';
 import * as jwt from 'jsonwebtoken';
+import { Server, Socket } from 'socket.io';
 import config from '../config/config';
-import User from '../models/user';
-import Item from '../models/item';
 
 class SocketService {
   private io: Server | null = null;
@@ -19,12 +17,14 @@ class SocketService {
     // JWT authentication for socket.io
     io.use((socket: Socket, next) => {
       // Check for token in query or auth object (supporting both methods)
-      const token = 
-        socket.handshake.query?.token as string || 
-        (socket.handshake.auth as any)?.token;
+      const authData = socket.handshake.auth as Record<string, unknown> | undefined;
+      const queryToken = socket.handshake.query?.token;
+      const token =
+        (typeof queryToken === 'string' ? queryToken : undefined) ||
+        (typeof authData?.token === 'string' ? authData.token : undefined);
         
       if (token) {
-        jwt.verify(token, config.jwtSecret, (err: jwt.VerifyErrors | null, decoded: any) => {
+        jwt.verify(token, config.jwtSecret, (err: jwt.VerifyErrors | null, decoded: unknown) => {
           if (err) {
             console.error('Socket auth error:', err.message);
             return next(new Error('Authentication error'));

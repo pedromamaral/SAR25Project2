@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { expressjwt } from 'express-jwt';
 import config from '../config/config';
 
@@ -9,8 +9,9 @@ export const authenticate = expressjwt({
 });
 
 // Error handler for JWT authentication
-export const handleJwtError = (err: any, req: Request, res: Response, next: NextFunction): void => {
-  if (err.name === 'UnauthorizedError') {
+export const handleJwtError = (err: unknown, req: Request, res: Response, next: NextFunction): void => {
+  const authError = err as { name?: string };
+  if (authError.name === 'UnauthorizedError') {
     res.status(401).json({
       status: 'error',
       message: 'Invalid token. Please log in again.'
