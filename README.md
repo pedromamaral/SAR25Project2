@@ -24,7 +24,7 @@ The codebase is already scaffolded. Your work is to complete and improve core fe
 
 ## Learning Goals
 
-By completing this project, students should demonstrate:
+By completing this project, students should learn:
 
 1. Full-stack feature implementation across Angular and Express.
 2. Type-safe development using TypeScript in frontend and backend.
