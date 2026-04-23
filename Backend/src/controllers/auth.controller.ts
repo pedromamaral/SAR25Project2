@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import User from '../models/user';
 import config from '../config/config';
+import User from '../models/user';
 
 /**
  * Handle user authentication
@@ -50,6 +50,20 @@ export const registerUser = (req: Request, res: Response): void => {
  */
 export const getUsers = (req: Request, res: Response): void => {
   // Go to the database and get all users
-  //  For now it just returs OK
-  res.status(200).send('OK');
+
+//create dummy users for now
+  const users = [
+    {
+      name: "somename",
+      email: "some@somemail.com",
+      username: "someusername",
+      password: "somepassword",
+      latitude: 19.09,
+      longitude: 34
+    }
+  ];
+
+
+  //  For now it just returns a dummy list of users, you should replace it with actual database query results
+  res.json(users);
 };
