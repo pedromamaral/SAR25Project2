@@ -86,17 +86,19 @@ Open two terminals in the container:
 npm --prefix Backend run dev
 ```
 
-2. Frontend app
+2. Frontend app (watch mode — rebuilds automatically on file changes)
 
 ```bash
 npm start
 ```
 
+Wait for the message `Application bundle generation complete` before opening the browser. This means the initial build is ready and the backend can serve it.
+
 ### After You Change Code
 
 1. If you change backend code in `Backend/src/`, keep `npm --prefix Backend run dev` running. It reloads automatically.
-2. If you change frontend code in `Frontend/`, keep `npm start` running. Angular recompiles automatically.
-3. You usually do not need to rebuild during development.
+2. If you change frontend code in `Frontend/`, keep `npm start` running. Angular detects changes, rebuilds to the `dist/` folder, and prints `Application bundle generation complete`. Then **hard-refresh the browser** (`Ctrl+Shift+R`) to load the updated files.
+3. You do not need to restart `npm start` after saving frontend files — the watcher handles it.
 4. Restart only when changing dependencies (`package.json`) or startup/environment configuration.
 
 ### If Rebuild or Recompile Errors Occur
@@ -108,7 +110,7 @@ npm start
 npm --prefix Backend run dev
 ```
 
-3. If frontend failed, restart frontend dev server:
+3. If frontend failed, restart the frontend watch build:
 
 ```bash
 npm start
